@@ -3,7 +3,7 @@
 #include <math.h> 
 
 void decodificar_telemetria(unsigned char *ptr) {
-    // Combina os bytes em um inteiro de 32 bits (considerando big-endian)
+    // Combina os bytes em um inteiro de 32 bits (considerando little-endian)
     uint32_t valor = (ptr[3] << 24) | (ptr[2] << 16) | (ptr[1] << 8) | ptr[0]; 
 
     // Extrai o bit de sinal
