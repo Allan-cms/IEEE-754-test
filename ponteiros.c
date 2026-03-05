@@ -4,7 +4,7 @@
 
 void decodificar_telemetria(unsigned char *ptr) {
     // Combina os bytes em um inteiro de 32 bits (considerando big-endian)
-    uint32_t valor = (ptr[0] << 24) | (ptr[1] << 16) | (ptr[2] << 8) | ptr[3]; 
+    uint32_t valor = (ptr[3] << 24) | (ptr[2] << 16) | (ptr[1] << 8) | ptr[0]; 
 
     // Extrai o bit de sinal
     int s = (valor >> 31) & 0x1; //testandogit
@@ -19,7 +19,7 @@ void decodificar_telemetria(unsigned char *ptr) {
     double M = 0.0;
     for (int i = 0; i < 23; i++) {
         if (M_bits & (1 << (22 - i))) {
-            M += pow(2, -(i + 1));
+            M += pow(2, - (i + 1));
         }
     }
 
@@ -40,16 +40,16 @@ void decodificar_telemetria(unsigned char *ptr) {
     }
 
     printf("Sinal: %d\n", s);
-    printf("Expoente: %d\n", E);
+    printf("Expoente (Bias corrigido): %d\n", E);
     printf("Mantissa (hex): 0x%06X\n", M_bits);
     printf("Valor final: %f\n", (float)V);
 }
 
 int main() {
-    // Exemplo de buffer com bytes recebidos
-    unsigned char buffer[4] = {0x3E, 0x20, 0x00, 0x00}; // valor que representa 50.0
+    // Exemplo de buffer com bytes, numeros finais de matricula: 1 e 7 
+    unsigned char buffer_memoria[4] = {0x01, 0x07, 0x20, 0xC1}; 
 
-    decodificar_telemetria(buffer);
+    decodificar_telemetria(buffer_memoria);
 
     return 0; //teste
 }
