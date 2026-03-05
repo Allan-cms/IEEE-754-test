@@ -51,5 +51,5 @@ int main() {
 
     decodificar_telemetria(buffer);
 
-    return 0;
+    return 0; //teste
 }
