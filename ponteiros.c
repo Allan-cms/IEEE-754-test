@@ -7,7 +7,7 @@ void decodificar_telemetria(unsigned char *ptr) {
     uint32_t valor = (ptr[0] << 24) | (ptr[1] << 16) | (ptr[2] << 8) | ptr[3]; 
 
     // Extrai o bit de sinal
-    int s = (valor >> 31) & 0x1;
+    int s = (valor >> 31) & 0x1; //testandogit
 
     // Extrai o expoente (8 bits)
     int E = (valor >> 23) & 0xFF;
